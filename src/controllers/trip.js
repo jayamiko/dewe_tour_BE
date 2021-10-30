@@ -2,7 +2,7 @@ const { trip, country } = require("../../models");
 
 exports.getTrips = async (req, res) => {
     try {
-        const data = await trip.findAll({
+        const dataCountry = await trip.findAll({
             include: {
                 model: country,
                 as: "country",
@@ -17,7 +17,7 @@ exports.getTrips = async (req, res) => {
 
         res.send({
             status: "success",
-            data,
+            dataCountry,
         });
     } catch (error) {
         console.log(error),
@@ -31,7 +31,7 @@ exports.getTrips = async (req, res) => {
 exports.getTrip = async (req, res) => {
     try {
         const { id } = req.params;
-        const data = await trip.findOne({
+        const dataCountry = await trip.findOne({
             where: { id },
             include: {
                 model: country,
@@ -47,7 +47,7 @@ exports.getTrip = async (req, res) => {
 
         res.send({
             status: "success",
-            data,
+            dataCountry,
         });
     } catch (error) {
         console.log(error);
@@ -60,11 +60,11 @@ exports.getTrip = async (req, res) => {
 
 exports.addTrip = async (req, res) => {
     try {
-        const image = JSON.stringify(
-            req.files.imageFile.map((index) => index.filename)
-        );
-        const allData = { ...req.body, image };
-        const data = await trip.create(allData);
+        // const image = JSON.stringify(
+        //     req.files.imageFile.map((index) => index.filename)
+        // );
+        const allDataCountry = { ...req.body }; //, image
+        const data = await trip.create(allDataCountry);
 
         res.send({
             status: "success",
@@ -79,44 +79,44 @@ exports.addTrip = async (req, res) => {
     }
 };
 
-// exports.updateTrip = async (req, res) => {
-//     try {
-//         const { id } = req.params;
-//         const image = JSON.stringify(
-//             req.files.imageFile.map((index) => index.filename)
-//         );
-//         const allData = { ...req.body, image };
-//         await trip.update(allData, {
-//             where: { id },
-//         });
-//         res.send({
-//             status: "success",
-//             message: `update data id ${id} success`,
-//         });
-//     } catch (error) {
-//         console.log(error);
-//         res.status(500).send({
-//             status: "failed",
-//             message: "server error",
-//         });
-//     }
-// };
+exports.updateTrip = async (req, res) => {
+    const { id } = req.params;
+    try {
+        await trip.update(req.body, {
+            where: {
+                id
+            }
+        })
+        res.send({
+            status: "Success",
+            message: "Add Trip is Successfully"
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            status: "Failed",
+            message: "Add Trip Failed"
+        })
+    }
+}
 
-// exports.deleteTrip = async (req, res) => {
-//     try {
-//         const { id } = req.params;
-//         await trip.destroy({
-//             where: { id },
-//         });
-//         res.send({
-//             status: "success",
-//             message: `delete trip id ${id} success`,
-//         });
-//     } catch (error) {
-//         console.log(error);
-//         res.status(500).send({
-//             status: "failed",
-//             message: "server error",
-//         });
-//     }
-// };
+exports.deleteTrip = async (req, res) => {
+    const { id } = req.params;
+    try {
+        await trip.destroy({
+            where: {
+                id
+            }
+        })
+        res.send({
+            status: "Success",
+            message: "Delete Trip is Succesfully"
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            status: "Failed",
+            message: "Delete Trip Failed"
+        })
+    }
+}

@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { addUsers, getUser, getUsers, updateUser, deleteUser } = require('../controllers/user')
 const { addCountry, getCountries, getCountry, updateCountry, deleteCountry } = require('../controllers/country')
-const { addTrip, getTrips, getTrip } = require('../controllers/trip')
+const { addTrip, getTrips, getTrip, updateTrip, deleteTrip } = require('../controllers/trip')
 
 // Route User
 router.get('/users', getUsers)
@@ -22,5 +22,7 @@ router.delete('/countries/:id', deleteCountry)
 router.get('/trips', getTrips)
 router.get('/trip/:id', getTrip)
 router.post('/trip', addTrip)
+router.put('/trip/:id', updateTrip)
+router.delete('/trip/:id', deleteTrip)
 
 module.exports = router;
