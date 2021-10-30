@@ -11,7 +11,7 @@ exports.getTrips = async (req, res) => {
                 },
             },
             attributes: {
-                exclude: ["idCountry"],
+                exclude: ["createdAt", "updatedAt", "idCountry"],
             },
         });
 
@@ -41,7 +41,7 @@ exports.getTrip = async (req, res) => {
                 },
             },
             attributes: {
-                exclude: ["idCountry"],
+                exclude: ["createdAt", "updatedAt", "idCountry"],
             },
         });
 
@@ -89,7 +89,7 @@ exports.updateTrip = async (req, res) => {
         })
         res.send({
             status: "Success",
-            message: "Add Trip is Successfully"
+            message: "Update Trip is Successfully"
         })
     } catch (error) {
         console.log(error);

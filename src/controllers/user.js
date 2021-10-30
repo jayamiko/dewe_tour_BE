@@ -3,14 +3,14 @@ const { user } = require('../../models')
 
 exports.getUsers = async (req, res) => {
     try {
-        let data = await user.findAll({
+        let dataUser = await user.findAll({
             attributes: {
                 exclude: ["updatedAt", "createdAt"]
             }
         })
         res.send({
             status: "success",
-            data,
+            dataUser,
         })
     } catch (error) {
         console.log(error);
@@ -24,7 +24,7 @@ exports.getUsers = async (req, res) => {
 exports.getUser = async (req, res) => {
     const { id } = req.params
     try {
-        let data = await user.findOne({
+        let dataUser = await user.findOne({
             where: {
                 id
             },
@@ -34,9 +34,7 @@ exports.getUser = async (req, res) => {
         })
         res.send({
             status: "success",
-            data: {
-                user: data
-            }
+            dataUser
         })
     } catch (error) {
         console.log(error);
@@ -63,23 +61,16 @@ exports.addUsers = async (req, res) => {
     }
 }
 exports.updateUser = async (req, res) => {
-    const { id } = req.params
+    const { id } = req.params;
     try {
         await user.update(req.body, {
             where: {
                 id
-            },
-        })
-        const updatedData = await user.findOne({
-            where: {
-                id
-            },
+            }
         })
         res.send({
-            status: "success",
-            data: {
-                user: updatedData
-            }
+            status: "Success",
+            message: "Update is Successfully"
         })
     } catch (error) {
         console.log(error);

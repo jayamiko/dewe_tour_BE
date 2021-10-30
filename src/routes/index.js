@@ -3,6 +3,7 @@ const router = express.Router()
 const { addUsers, getUser, getUsers, updateUser, deleteUser } = require('../controllers/user')
 const { addCountry, getCountries, getCountry, updateCountry, deleteCountry } = require('../controllers/country')
 const { addTrip, getTrips, getTrip, updateTrip, deleteTrip } = require('../controllers/trip')
+const { addTransaction, getTransactions, getTransaction, updateTransaction, deleteTransaction } = require('../controllers/transaction')
 
 // Route User
 router.get('/users', getUsers)
@@ -24,5 +25,12 @@ router.get('/trip/:id', getTrip)
 router.post('/trip', addTrip)
 router.put('/trip/:id', updateTrip)
 router.delete('/trip/:id', deleteTrip)
+
+// Route Transaction
+router.get('/transactions', getTransactions)
+router.get('/transaction/:id', getTransaction)
+router.post('/transaction', addTransaction)
+router.put('/transaction/:id', updateTransaction)
+router.delete('/transaction/:id', deleteTransaction)
 
 module.exports = router;
