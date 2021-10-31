@@ -10,7 +10,7 @@ exports.register = async (req, res) => {
         email: Joi.string().email().min(6).required(),
         password: Joi.string().min(6).required(),
         phone: Joi.string().min(5),
-        address: Joi.string().min(5)
+        address: Joi.string().min(5),
     })
 
     const { error } = schema.validate(req.body)
@@ -40,7 +40,8 @@ exports.register = async (req, res) => {
             email,
             password: hashedPassword,
             phone,
-            address
+            address,
+            status: "user"
         })
 
         const token = jwt.sign({ id: user.id }, process.env.TOKEN_KEY)
