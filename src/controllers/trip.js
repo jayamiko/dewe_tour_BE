@@ -60,11 +60,8 @@ exports.getTrip = async (req, res) => {
 
 exports.addTrip = async (req, res) => {
     try {
-        // const image = JSON.stringify(
-        //     req.files.imageFile.map((index) => index.filename)
-        // );
-        const allDataCountry = { ...req.body }; //, image
-        const data = await trip.create(allDataCountry);
+        const dataCountry = req.body
+        const data = await trip.create(dataCountry);
 
         res.send({
             status: "success",

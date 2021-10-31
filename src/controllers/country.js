@@ -44,10 +44,23 @@ exports.getCountry = async (req, res) => {
 
 exports.addCountry = async (req, res) => {
     try {
+        const countryName = await country.findOne({
+            where: {
+                name: req.body.name
+            },
+        })
+
+        if (countryName) {
+            return res.status(400).send({
+                status: "Failed",
+                message: "Country Already Exist"
+            })
+        }
+
         await country.create(req.body)
         res.send({
             status: "success",
-            message: "Add country finished"
+            message: "Add Country Finished"
         })
     } catch (error) {
         console.log(error)

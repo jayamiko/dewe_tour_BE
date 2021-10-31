@@ -4,36 +4,38 @@ const { addUsers, getUser, getUsers, updateUser, deleteUser } = require('../cont
 const { addCountry, getCountries, getCountry, updateCountry, deleteCountry } = require('../controllers/country')
 const { addTrip, getTrips, getTrip, updateTrip, deleteTrip } = require('../controllers/trip')
 const { addTransaction, getTransactions, getTransaction, updateTransaction, deleteTransaction } = require('../controllers/transaction')
-const { register, login } = require('../controllers/auth')
+const { register, login } = require('../controllers/auth');
+
+// Middleware
+const { auth, admin } = require('../middlewares/auth')
 // Route User
-router.get('/users', getUsers)
+router.get('/users', auth, getUsers)
 router.get('/user/:id', getUser)
-router.post('/users', addUsers)
-router.put('/user/:id', updateUser)
-router.delete('/user/:id', deleteUser)
+router.post('/users', auth, addUsers)
+router.put('/user/:id', auth, updateUser)
+router.delete('/user/:id', auth, admin, deleteUser)
 
 // Route Countries
 router.get('/countries', getCountries)
 router.get('/countries/:id', getCountry)
-router.post('/countries', addCountry)
-router.put('/countries/:id', updateCountry)
-router.delete('/countries/:id', deleteCountry)
+router.post('/countries', auth, admin, addCountry)
+router.put('/countries/:id', auth, admin, updateCountry)
+router.delete('/countries/:id', auth, admin, deleteCountry)
 
 // Route Trips
 router.get('/trips', getTrips)
 router.get('/trip/:id', getTrip)
-router.post('/trip', addTrip)
-router.put('/trip/:id', updateTrip)
-router.delete('/trip/:id', deleteTrip)
+router.post('/trip', auth, admin, addTrip)
+router.put('/trip/:id', auth, admin, updateTrip)
+router.delete('/trip/:id', auth, admin, deleteTrip)
 
 // Route Transaction
-router.get('/transactions', getTransactions)
-router.get('/transaction/:id', getTransaction)
-router.post('/transaction', addTransaction)
-router.put('/transaction/:id', updateTransaction)
-router.delete('/transaction/:id', deleteTransaction)
+router.get('/transactions', auth, getTransactions)
+router.get('/transaction/:id', auth, getTransaction)
+router.post('/transaction', auth, addTransaction)
+router.delete('/transaction/:id', auth, deleteTransaction)
 
-router.post('/login', login);
+router.post('/login', auth, login);
 router.post('/register', register);
 
 module.exports = router;
