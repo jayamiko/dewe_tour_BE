@@ -4,7 +4,7 @@ const { addUsers, getUser, getUsers, updateUser, deleteUser } = require('../cont
 const { addCountry, getCountries, getCountry, updateCountry, deleteCountry } = require('../controllers/country')
 const { addTrip, getTrips, getTrip, updateTrip, deleteTrip } = require('../controllers/trip')
 const { addTransaction, getTransactions, getTransaction, updateTransaction, deleteTransaction } = require('../controllers/transaction')
-
+const { register, login } = require('../controllers/auth')
 // Route User
 router.get('/users', getUsers)
 router.get('/user/:id', getUser)
@@ -32,5 +32,8 @@ router.get('/transaction/:id', getTransaction)
 router.post('/transaction', addTransaction)
 router.put('/transaction/:id', updateTransaction)
 router.delete('/transaction/:id', deleteTransaction)
+
+router.post('/login', login);
+router.post('/register', register);
 
 module.exports = router;
