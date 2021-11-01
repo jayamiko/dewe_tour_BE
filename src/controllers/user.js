@@ -55,7 +55,7 @@ exports.addUsers = async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500), send({
-            status: "failed",
+            status: "Failed",
             message: "Server Error"
         })
     }
@@ -96,7 +96,7 @@ exports.deleteUser = async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500), send({
-            status: "failed",
+            status: "Failed",
             message: "Deleted is Failed"
         })
     }

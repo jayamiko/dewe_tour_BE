@@ -13,7 +13,9 @@ exports.auth = (req, res, next) => {
         req.user = verified;
         next();
     } catch (error) {
-        res.status(400).send({ message: "Invalid token" });
+        res.status(400).send({
+            message: "Invalid token"
+        });
     }
 };
 
@@ -27,17 +29,17 @@ exports.admin = async (req, res, next) => {
         });
         if (statusUser.status !== "admin") {
             return res.status(403).send({
-                status: "failed",
-                message: "forbidden access!",
+                status: "Failed",
+                message: "Forbidden Access..",
             });
         }
-
         next();
+
     } catch (error) {
         console.log(error);
         res.status(500).send({
-            status: "error",
-            message: "server error",
+            status: "Error",
+            message: "Server Error",
         });
     }
 };

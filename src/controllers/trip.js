@@ -62,16 +62,16 @@ exports.addTrip = async (req, res) => {
     try {
         const dataCountry = req.body
         const data = await trip.create(dataCountry);
-
+        console.log(dataCountry);
         res.send({
-            status: "success",
+            status: "Success",
             data,
         });
     } catch (error) {
         console.log(error);
         res.status(500).send({
-            satus: "failed",
-            message: "server error",
+            satus: "Failed",
+            message: "Server Error",
         });
     }
 };

@@ -8,6 +8,8 @@ const { register, login } = require('../controllers/auth');
 
 // Middleware
 const { auth, admin } = require('../middlewares/auth')
+const { uploadsFile } = require('../middlewares/uploadsFile')
+
 // Route User
 router.get('/users', auth, getUsers)
 router.get('/user/:id', getUser)
@@ -26,13 +28,13 @@ router.delete('/countries/:id', auth, admin, deleteCountry)
 router.get('/trips', getTrips)
 router.get('/trip/:id', getTrip)
 router.post('/trip', auth, admin, addTrip)
-router.put('/trip/:id', auth, admin, updateTrip)
+router.put('/trip/:id', auth, admin, uploadsFile("image"), updateTrip)
 router.delete('/trip/:id', auth, admin, deleteTrip)
 
 // Route Transaction
 router.get('/transactions', auth, getTransactions)
 router.get('/transaction/:id', auth, getTransaction)
-router.post('/transaction', auth, addTransaction)
+router.post('/transaction', auth, uploadsFile("image"), addTransaction)
 router.delete('/transaction/:id', auth, deleteTransaction)
 
 router.post('/login', auth, login);
