@@ -91,14 +91,14 @@ exports.login = async (req, res) => {
 
         if (!isPassValid) {
             return res.status(400).send({
-                status: "failed",
-                message: "credential is invalid"
+                status: "Failed",
+                message: "Credential is invalid"
             })
         }
 
         const token = jwt.sign({ id: userExist.id }, process.env.TOKEN_KEY)
         res.status(200).send({
-            status: "success",
+            status: "Success",
             data: {
                 name: userExist.name,
                 email: userExist.email,
@@ -108,7 +108,7 @@ exports.login = async (req, res) => {
     } catch (error) {
         console.log(error)
         res.status(500).send({
-            status: "failed",
+            status: "Failed",
             message: "Server error"
         })
     }

@@ -27,14 +27,14 @@ router.delete('/countries/:id', auth, admin, deleteCountry)
 // Route Trips
 router.get('/trips', getTrips)
 router.get('/trip/:id', getTrip)
-router.post('/trip', auth, admin, addTrip)
-router.put('/trip/:id', auth, admin, uploadsFile("image"), updateTrip)
+router.post('/trip', uploadsFile("image"), addTrip)
+// router.put('/trip/:id', auth, admin, updateTrip)
 router.delete('/trip/:id', auth, admin, deleteTrip)
 
 // Route Transaction
 router.get('/transactions', auth, getTransactions)
 router.get('/transaction/:id', auth, getTransaction)
-router.post('/transaction', auth, uploadsFile("image"), addTransaction)
+router.post('/transaction', auth, uploadsFile("attachment"), addTransaction)
 router.delete('/transaction/:id', auth, deleteTransaction)
 
 router.post('/login', auth, login);

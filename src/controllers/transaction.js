@@ -127,17 +127,24 @@ exports.getTransaction = async (req, res) => {
 
 exports.addTransaction = async (req, res) => {
     try {
-        const dataTransaction = { ...req.body };
-        let data = await transaction.create(dataTransaction)
-        res.send({
-            status: "Success",
-            data
+        const { ...data } = req.body
+        const { attachment } = req.files
+
+        await transaction.create({
+            ...data,
+            attachment: attachment[0].filename
         })
+
+        res.send({
+            status: "success",
+            message: "Add transaction finished"
+        })
+
     } catch (error) {
-        console.log(error);
+        console.log(error)
         res.status(500).send({
-            status: "Failed",
-            message: "Add Transaction is Failed"
+            status: "failed",
+            message: "Server error"
         })
     }
 }

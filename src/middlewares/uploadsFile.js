@@ -1,28 +1,32 @@
-const multer = require('multer');
+const multer = require('multer')
 
-exports.uploadsFile = (imageFile) => {
+exports.uploadsFile = (imageFile, location) => {
     const storage = multer.diskStorage({
-        destination: function (req, res, cb) {
-            cb(null, "uploads")
+        destination: function (req, file, cb) {
+            cb(null, 'uploads')
         },
         filename: function (req, file, cb) {
-            cb(null, Date.now() + "-" + file.originalname.replace(/\s/g, ""))
+            cb(null, Date.now() + '-' + file.originalname.replace(/\s/g, ''))
         }
     })
+
     const fileFilter = (req, file, cb) => {
         if (file.fieldname === imageFile) {
-            if (!file.originalname.match(/\.(jpg|JPG|JPEG|png|PNG|svg)$/)) {
+            if (!file.originalname.match(/\.(jpg|JPG|JPEG|png|PNG)$/)) {
                 req.fileValidationError = {
-                    message: "Only Images File are allowed!"
+                    message: 'Only image files are allowed'
                 }
-                return cb(new Error("Only Image Files are Allowed", false))
+
+                return cb(new Error('Only image files are allowed'), false)
             }
+
             cb(null, true)
         }
     }
 
-    const sizeinMB = 10;
-    const maxSize = sizeinMB * 1024 * 1024;
+    const sizeInMB = 10
+    const maxSize = sizeInMB * 1024 * 1024
+
     const upload = multer({
         storage,
         fileFilter,
@@ -41,20 +45,24 @@ exports.uploadsFile = (imageFile) => {
             if (req.fileValidationError) {
                 return res.status(400).send(req.fileValidationError)
             }
-            if (!req.file && !err) {
+
+            if (!req.files && !err) {
                 return res.status(400).send({
-                    message: "Please Select File to Upload"
+                    message: 'Please select file to upload'
                 })
             }
+
             if (err) {
-                if (err.code === "LIMIT FILE SIZE") {
+                if (err.code === 'LIMIT_FILE_SIZE') {
                     return res.status(400).send({
-                        message: "Max file sized in 10MB"
+                        message: 'Max file size is 10MB'
                     })
                 }
-                return res.status(400).send(err)
+
+                return req.status(400).send(err)
             }
-            return next();
+
+            return next()
         })
     }
-};
+}
