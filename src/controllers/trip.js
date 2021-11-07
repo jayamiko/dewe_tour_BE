@@ -58,7 +58,7 @@ exports.addTrip = async (req, res) => {
         const { image } = req.files
         const allImage = []
         for (let img of image) {
-            allImage.push(img.filename)
+            allImage.push("http://localhost:5000/uploads/" + img.filename)
         }
 
         const imageFileToString = JSON.stringify(allImage)
